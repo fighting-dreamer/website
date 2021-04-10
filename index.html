@@ -7,13 +7,13 @@
     <title>Bootstrap 5 Crash course</title>
     <style>
         /* columns */
-        [class*="col"] { 
+        /* [class*="col"] { 
             padding: 1rem;
             background-color: #33b5e5;
             border: 2px solid #fff;
             color: #fff;
             text-align: center;
-        }
+        } */
         /* containers */
         /* [class*="con"] {
             padding: 1rem;
@@ -64,7 +64,116 @@
         <!-- disabling button by disabled property, making it un-clickable. -->
         <button type="button" class="btn btn-outline-primary" disabled>outline-primary</button>
     </div>
+    <!-- Cards in bootstrap -->
+    <br>
+    <br>
+    <h1>Cards</h1>
+    <div class="card">
+        <div class="card-body">
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Amet, doloremque ab, natus ipsum officia reiciendis eligendi, praesentium commodi repudiandae fuga sint. Repudiandae amet vitae quod atque, ut error accusantium inventore.
+        </div>
+    </div>
+    <!-- we want to limit to a smaller width -->
+    <div class="card" style="width: 18rem">
+        <div class="card-body">
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Amet, doloremque ab, natus ipsum officia reiciendis eligendi, praesentium commodi repudiandae fuga sint. Repudiandae amet vitae quod atque, ut error accusantium inventore.
+        </div>
+    </div> 
+    <!-- Not recommended ^^, better way below : -->
+    <!-- Compare it the card under a row and column -->
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body"> 
+                    <p class="card-text">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Amet, doloremque ab, natus ipsum officia reiciendis eligendi, praesentium commodi repudiandae fuga sint. Repudiandae amet vitae quod atque, ut error accusantium inventore.</p>
+                </div>
+            </div>  
+        </div>
+    </div>
+    <!-- adding vertical margin using m* and here m"y" for y-axis or vertical axis --> 
+    <div class="card my-3" style="width:18rem">
+        <img class="card-img-top" src="https://data.whicdn.com/images/347167705/original.jpg?t=1596090687">
+        <div class="card-body">
+            <h5 class="card-title">Card Title</h5>
+            <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae distinctio veniam deleniti sapiente, odio, sit quae error dignissimos corrupti ullam dolor porro, reiciendis esse alias earum exercitationem. Eius, nulla a!</p>
+        </div>
+    </div>
 
+    <div class="card mb-3" style="max-width: 540px;">
+        <div class="row g-0">
+            <!-- using just image in one column, of smaller size for good effect -->
+            <div class="col-md-4"> 
+                <img class="img-fluid" src="https://images.unsplash.com/photo-1493612276216-ee3925520721?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mnx8cmFuZG9tfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde consequuntur commodi dolor ad et recusandae omnis libero quasi ipsum autem, quaerat iusto debitis voluptate ut itaque eveniet voluptatibus ullam nemo.</p>
+                    <p class="card-text"><small class="text-muted">ast ipdated 3 mins ago</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <br>
+    <br>
+    <div class="card" style="width: 18rem;">
+        <div class="card-header">
+            Feeatured
+        </div>
+        <div class="card-body">
+            <h5 class="card-header">some text</h5>
+            <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+            <button class="btn btn-primary">Go Somewhere</button>
+        </div>
+    </div>
+
+    <br>
+    <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+        <div class="card-header">Header</div>
+        <div class="card-body">
+            <h5 class="card-title">Primary card title</h5>
+            <p class="card-text">some quick example Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem fugit quo nesciunt.</p>
+        </div>
+    </div>
+
+    <div class="card text-white bg-secondary mb-3" style="width: 18rem;">
+        <div class="card-header">Header</div>
+        <div class="card-body">
+            <div class="card-title">Card Title</div>
+            <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci libero quisquam corporis voluptas natus assumenda consequatur, recusandae magnam unde nostrum excepturi aut eaque.</p>
+        </div>
+    </div>
+
+    <br>
+    <br>
+    <br>
+    <!-- card group -->
+    <div class="card-group">
+        <div class="card text-white bg-secondary mb-3" style="width: 18rem;">
+            <div class="card-header">Header</div>
+            <div class="card-body">
+                <div class="card-title">Card Title</div>
+                <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci libero quisquam corporis voluptas natus assumenda consequatur, recusandae magnam unde nostrum excepturi aut eaque.</p>
+            </div>
+        </div>
+        <div class="card text-white bg-secondary mb-3" style="width: 18rem;">
+            <div class="card-header">Header</div>
+            <div class="card-body">
+                <div class="card-title">Card Title</div>
+                <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci libero quisquam corporis voluptas natus assumenda consequatur, recusandae magnam unde nostrum excepturi aut eaque.</p>
+            </div>
+        </div>
+        <div class="card text-white bg-secondary mb-3" style="width: 18rem;">
+            <div class="card-header">Header</div>
+            <div class="card-body">
+                <div class="card-title">Card Title</div>
+                <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci libero quisquam corporis voluptas natus assumenda consequatur, recusandae magnam unde nostrum excepturi aut eaque.</p>
+            </div>
+        </div>
+        
+    </div>    
 
     <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script> 
     <!-- < for development version, from github : https://github.com/popperjs/popper-core> -->
