@@ -422,9 +422,46 @@
     <br>
     <br>
 
+    <h1>Alerts/Toasts</h1>
+    <div class="alert alert-primary">A simple primary alert</div>
+    <div class="alert alert-secondary">A simple secondary alert</div>
+    <div class="alert alert-success">A simple success alert</div>
+    <div class="alert alert-danger">A simple danger alert</div>
+    <div class="alert alert-warning">A simple warning alert</div>
+    <div class="alert alert-info">A simple info alert</div>
+    <div class="alert alert-light">A simple light alert</div>
+    <div class="alert alert-dark">A simple dark alert</div>
+    
+    <h1>Toast</h1>
+    <!-- they need to be invoked from javascript -->
+    <div id="toast" class="toast" data-animation="true" role="alert" aria-live="assertive" aria-atomic="true" style="position: fixed; top: 10px; right:10px;">
+        <div class="toast-header">
+            <img src="" class="rounded mr-2">
+            <strong class="mr-auto">Bootstrap</strong>
+            <small>11 mins ago</small>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="toast-body">
+            Hello World! This is toast message!!!
+        </div>
+    </div>
+
+
     <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script> 
     <!-- < for development version, from github : https://github.com/popperjs/popper-core> -->
     <script src="js/bootstrap.js"></script>
+    <script>
+        let toastElList = [].slice.call(document.querySelectorAll('.toast' ))
+        let toastList = toastElList.map(function(toastEl) {
+            options = {
+                animation: true
+            }
+            return new bootstrap.Toast(toastEl)
+        })
+        toastList[0].show()
+    </script>
 </body>
 
 </html>
