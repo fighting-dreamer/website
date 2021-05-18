@@ -1,7 +1,7 @@
 #hero {
     width: 100%;
     height: 100vh;
-    /* The path needs to be relative to the CSS file location */
+    /* The path needs to be relative to the CSS file location iv*/
     background: url("../../../images/hero-bg.jpg") top center;
     background-size: cover;
 }
