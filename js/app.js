@@ -30,7 +30,7 @@ const CHECK = "fa-check-cicle";
 const UNCHECK = "fa-circle-thin";
 const LINE_THROUGH = "linethrough";
 
-// we aadd element to existing list : 
+// we add element to existing list : 
 function addToDo(toDo, id, done, trash) {
     // if trash is true, then no need to run or do anything.
     if (trash) {
@@ -70,5 +70,41 @@ document.addEventListener(keyup, function(event) {
         // set the input value back to empty 
         input.value = "";
         id++; // increment id
+    }
+})
+
+// when someone press the radio-button.
+function completeToDo(element) {
+    elelemt.classList.toggle(CHECK);
+    elelemt.classList.toggle(UNCHECK);
+
+    // select the text of the element(radio-button)
+    // when task completes, we strike-it-through.
+    elelemt.parentNode.querySelector(".text").classList.toggle(LINE_THROUGH);
+
+    // udpate the done property :
+    list[element.id] = list[element.id].done ? false : true;
+}
+
+// when we delete the task : 
+function deleteToDo(element) {
+    // element here is the delete button
+    // task entry is the element.parentNode
+    // list is parent of task which will now need to be updated.
+
+    task = element.parentNode
+    list = task.parentNode
+    list.removeChild(task);
+
+    list[element.id].trash = true;
+}
+
+list.addEventListener("click", function(event) {
+    let eleement = event.target;
+    const elementJob = event.target.attributes.job.value; // it will be either delete of complete
+    if (elementJob == "complete") {
+        completeToDo(element)
+    }else if (elementJob == "delete") {
+        deleteToDo(eleement)
     }
 })
