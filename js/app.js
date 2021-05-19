@@ -1,110 +1,128 @@
+// CODE EXPLAINED channel
+
+// Select the Elements
 const clear = document.querySelector(".clear");
-
 const dateElement = document.getElementById("date");
-
 const list = document.getElementById("list");
-
 const input = document.getElementById("input");
 
-/*
-let list = []; // empty list of to-do items.
-let id = 0;
-
-list[0] -> {
-                name = "Drink Cofee",
-                id = 0,
-                done = false,
-                trash = false
-           }
-
-list[1] -> {
-                name = "Workout",
-                id = 1,
-                done = true,
-                trash = false
-           }
-
-*/
-
-const CHECK = "fa-check-cicle";
+// Classes names
+const CHECK = "fa-check-circle";
 const UNCHECK = "fa-circle-thin";
-const LINE_THROUGH = "linethrough";
+const LINE_THROUGH = "lineThrough";
 
-// we add element to existing list : 
-function addToDo(toDo, id, done, trash) {
-    // if trash is true, then no need to run or do anything.
-    if (trash) {
-        return ; 
-    }
+// Variables
+let LIST, id;
 
-    // we need to add the classname based on done or trash is true or false
+// get item from localstorage
+let data = localStorage.getItem("TODO");
+
+// check if data is not empty
+if(data){
+    LIST = JSON.parse(data);
+    id = LIST.length; // set the id to the last one in the list
+    loadList(LIST); // load the list to the user interface
+}else{
+    // if data isn't empty
+    LIST = [];
+    id = 0;
+}
+
+// load items to the user's interface
+function loadList(array){
+    array.forEach(function(item){
+        addToDo(item.name, item.id, item.done, item.trash);
+    });
+}
+
+// clear the local storage
+clear.addEventListener("click", function(){
+    localStorage.clear();
+    location.reload();
+});
+
+// Show todays date
+const options = {weekday : "long", month:"short", day:"numeric"};
+const today = new Date();
+
+dateElement.innerHTML = today.toLocaleDateString("en-US", options);
+
+// add to do function
+
+function addToDo(toDo, id, done, trash){
+    
+    if(trash){ return; }
+    
     const DONE = done ? CHECK : UNCHECK;
     const LINE = done ? LINE_THROUGH : "";
     
-    const text = `<li class="item"> 
-                <i class="co fa ${DONE}" job="complete" id="${id}"></i>
-                <p class="text ${LINE} "> ${todo} </p>
-                <i class="de fa fa-trash-o" job="delete" id="${id}"></i>
-             </li>`
-    const position = "beforeend"
-    list.insertAdjacentElement(position, text)
+    const item = `<li class="item">
+                    <i class="fa ${DONE} co" job="complete" id="${id}"></i>
+                    <p class="text ${LINE}">${toDo}</p>
+                    <i class="fa fa-trash-o de" job="delete" id="${id}"></i>
+                  </li>
+                `;
+    
+    const position = "beforeend";
+    
+    list.insertAdjacentHTML(position, item);
 }
 
-// when the user have added the to do, the enter key needs to be pressed, how to add that event here : 
-document.addEventListener(keyup, function(event) {
-    if (event.keyCode == 13) { // 13 is for pressing Enter key
-        const todo = input.value; // we take the todo in the input field.
-        // check  to add only-if the todo is not an empty string 
-        if (todo) {
-            addToDo(todo, id, false, false);
-            list.push (
-                {
-                    name : todo,
-                    id : id,
-                    done: false,
-                    trash: false
-                }
-            );
+// add an item to the list user the enter key
+document.addEventListener("keyup",function(event){
+    if(event.keyCode == 13){
+        const toDo = input.value;
+        
+        // if the input isn't empty
+        if(toDo){
+            addToDo(toDo, id, false, false);
+            
+            LIST.push({
+                name : toDo,
+                id : id,
+                done : false,
+                trash : false
+            });
+            
+            // add item to localstorage ( this code must be added where the LIST array is updated)
+            localStorage.setItem("TODO", JSON.stringify(LIST));
+            
+            id++;
         }
-
-        // set the input value back to empty 
         input.value = "";
-        id++; // increment id
     }
-})
+});
 
-// when someone press the radio-button.
-function completeToDo(element) {
-    elelemt.classList.toggle(CHECK);
-    elelemt.classList.toggle(UNCHECK);
 
-    // select the text of the element(radio-button)
-    // when task completes, we strike-it-through.
-    elelemt.parentNode.querySelector(".text").classList.toggle(LINE_THROUGH);
-
-    // udpate the done property :
-    list[element.id] = list[element.id].done ? false : true;
+// complete to do
+function completeToDo(element){
+    element.classList.toggle(CHECK);
+    element.classList.toggle(UNCHECK);
+    element.parentNode.querySelector(".text").classList.toggle(LINE_THROUGH);
+    
+    LIST[element.id].done = LIST[element.id].done ? false : true;
 }
 
-// when we delete the task : 
-function deleteToDo(element) {
-    // element here is the delete button
-    // task entry is the element.parentNode
-    // list is parent of task which will now need to be updated.
-
-    task = element.parentNode
-    list = task.parentNode
-    list.removeChild(task);
-
-    list[element.id].trash = true;
+// remove to do
+function removeToDo(element){
+    element.parentNode.parentNode.removeChild(element.parentNode);
+    
+    LIST[element.id].trash = true;
 }
 
-list.addEventListener("click", function(event) {
-    let eleement = event.target;
-    const elementJob = event.target.attributes.job.value; // it will be either delete of complete
-    if (elementJob == "complete") {
-        completeToDo(element)
-    }else if (elementJob == "delete") {
-        deleteToDo(eleement)
+// target the items created dynamically
+
+list.addEventListener("click", function(event){
+    const element = event.target; // return the clicked element inside list
+    const elementJob = element.attributes.job.value; // complete or delete
+    
+    if(elementJob == "complete"){
+        completeToDo(element);
+    }else if(elementJob == "delete"){
+        removeToDo(element);
     }
-})
+    
+    // add item to localstorage ( this code must be added where the LIST array is updated)
+    localStorage.setItem("TODO", JSON.stringify(LIST));
+});
+
